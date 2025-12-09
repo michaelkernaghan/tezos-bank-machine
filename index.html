@@ -15,69 +15,129 @@
         <div class="network-badge" id="network">shadownet</div>
       </header>
 
-      <!-- Status Bar -->
-      <div class="status-bar">
-        <span class="status-dot" id="status-dot"></span>
-        <span id="status-text">Connecting...</span>
+      <!-- Login Screen -->
+      <div id="login-screen" class="login-screen">
+        <div class="login-card">
+          <h2>Welcome</h2>
+          <p class="login-subtitle">Enter your PIN to continue</p>
+          <div class="pin-display" id="pin-display">
+            <span class="pin-dot"></span>
+            <span class="pin-dot"></span>
+            <span class="pin-dot"></span>
+            <span class="pin-dot"></span>
+          </div>
+          <div class="pin-pad">
+            <button type="button" class="pin-btn" data-digit="1">1</button>
+            <button type="button" class="pin-btn" data-digit="2">2</button>
+            <button type="button" class="pin-btn" data-digit="3">3</button>
+            <button type="button" class="pin-btn" data-digit="4">4</button>
+            <button type="button" class="pin-btn" data-digit="5">5</button>
+            <button type="button" class="pin-btn" data-digit="6">6</button>
+            <button type="button" class="pin-btn" data-digit="7">7</button>
+            <button type="button" class="pin-btn" data-digit="8">8</button>
+            <button type="button" class="pin-btn" data-digit="9">9</button>
+            <button type="button" class="pin-btn clear" data-action="clear">C</button>
+            <button type="button" class="pin-btn" data-digit="0">0</button>
+            <button type="button" class="pin-btn enter" data-action="enter">OK</button>
+          </div>
+          <div class="login-status" id="login-status"></div>
+          <button type="button" class="register-link" id="show-register">New user? Register here</button>
+        </div>
       </div>
 
-      <!-- Balance Display -->
-      <section class="balance-section">
-        <div class="balance-card">
-          <label>Bank Balance</label>
-          <div class="balance-amount">
-            <span id="bank-balance">--</span>
-            <span class="currency">XTZ</span>
+      <!-- Register Screen -->
+      <div id="register-screen" class="register-screen hidden">
+        <div class="login-card">
+          <h2>Register</h2>
+          <p class="login-subtitle">Link your address to a PIN</p>
+          <div class="input-group">
+            <label for="register-address">Your Tezos Address</label>
+            <input type="text" id="register-address" placeholder="tz1...">
           </div>
-        </div>
-        <div class="balance-card">
-          <label>Client Balance</label>
-          <div class="balance-amount">
-            <span id="client-balance">--</span>
-            <span class="currency">XTZ</span>
+          <div class="input-group">
+            <label for="register-pin">Choose a 4-digit PIN</label>
+            <input type="password" id="register-pin" placeholder="****" maxlength="4" pattern="[0-9]*" inputmode="numeric">
           </div>
+          <div class="input-group">
+            <label for="confirm-pin">Confirm PIN</label>
+            <input type="password" id="confirm-pin" placeholder="****" maxlength="4" pattern="[0-9]*" inputmode="numeric">
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="atm-btn" id="back-to-login">Back</button>
+            <button type="button" class="atm-btn primary" id="register-btn">Register</button>
+          </div>
+          <div class="login-status" id="register-status"></div>
         </div>
-      </section>
+      </div>
 
-      <!-- Limits Display -->
-      <section class="limits-section">
-        <div class="limit-item">
-          <span class="limit-label">Daily Limit</span>
-          <span class="limit-value" id="daily-limit">--</span>
+      <!-- Main ATM Screen (hidden until login) -->
+      <div id="main-screen" class="main-screen hidden">
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span class="status-dot" id="status-dot"></span>
+          <span id="status-text">Connected</span>
+          <button type="button" class="logout-btn" id="logout-btn">Logout</button>
         </div>
-        <div class="limit-item">
-          <span class="limit-label">Per Transaction</span>
-          <span class="limit-value" id="tx-limit">--</span>
-        </div>
-        <div class="limit-item">
-          <span class="limit-label">Spent Today</span>
-          <span class="limit-value" id="spent-today">--</span>
-        </div>
-        <div class="limit-item">
-          <span class="limit-label">Remaining</span>
-          <span class="limit-value highlight" id="remaining">--</span>
-        </div>
-      </section>
 
-      <!-- Action Buttons -->
-      <section class="actions-section">
-        <button class="atm-btn primary" id="btn-withdraw">
-          <span class="btn-icon">↑</span>
-          Withdraw
-        </button>
-        <button class="atm-btn secondary" id="btn-deposit">
-          <span class="btn-icon">↓</span>
-          Deposit
-        </button>
-        <button class="atm-btn" id="btn-history">
-          <span class="btn-icon">☰</span>
-          History
-        </button>
-        <button class="atm-btn" id="btn-refresh">
-          <span class="btn-icon">⟳</span>
-          Refresh
-        </button>
-      </section>
+        <!-- Balance Display - Only user balance -->
+        <section class="balance-section single">
+          <div class="balance-card large">
+            <label>Your Balance</label>
+            <div class="balance-amount">
+              <span id="client-balance">--</span>
+              <span class="currency">XTZ</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Limits Display -->
+        <section class="limits-section">
+          <div class="limit-item">
+            <span class="limit-label">Daily Limit</span>
+            <span class="limit-value" id="daily-limit">--</span>
+          </div>
+          <div class="limit-item">
+            <span class="limit-label">Per Transaction</span>
+            <span class="limit-value" id="tx-limit">--</span>
+          </div>
+          <div class="limit-item">
+            <span class="limit-label">Spent Today</span>
+            <span class="limit-value" id="spent-today">--</span>
+          </div>
+          <div class="limit-item">
+            <span class="limit-label">Remaining</span>
+            <span class="limit-value highlight" id="remaining">--</span>
+          </div>
+        </section>
+
+        <!-- Action Buttons -->
+        <section class="actions-section">
+          <button type="button" class="atm-btn primary" id="btn-withdraw">
+            <span class="btn-icon">↑</span>
+            Withdraw
+          </button>
+          <button type="button" class="atm-btn secondary" id="btn-deposit">
+            <span class="btn-icon">↓</span>
+            Deposit
+          </button>
+          <button type="button" class="atm-btn" id="btn-history">
+            <span class="btn-icon">☰</span>
+            History
+          </button>
+          <button type="button" class="atm-btn" id="btn-refresh">
+            <span class="btn-icon">⟳</span>
+            Refresh
+          </button>
+        </section>
+
+        <!-- User Address -->
+        <section class="addresses-section">
+          <div class="address-item">
+            <label>Your Address</label>
+            <code id="spender-address">--</code>
+          </div>
+        </section>
+      </div>
 
       <!-- Transaction Modal -->
       <div class="modal" id="modal">
@@ -93,15 +153,15 @@
               <input type="number" id="amount-input" placeholder="0.00" step="0.01" min="0">
             </div>
             <div class="quick-amounts">
-              <button class="quick-btn" data-amount="1">1</button>
-              <button class="quick-btn" data-amount="5">5</button>
-              <button class="quick-btn" data-amount="10">10</button>
-              <button class="quick-btn" data-amount="25">25</button>
+              <button type="button" class="quick-btn" data-amount="1">1</button>
+              <button type="button" class="quick-btn" data-amount="5">5</button>
+              <button type="button" class="quick-btn" data-amount="10">10</button>
+              <button type="button" class="quick-btn" data-amount="25">25</button>
             </div>
           </div>
           <div class="modal-actions">
-            <button class="atm-btn" id="modal-cancel">Cancel</button>
-            <button class="atm-btn primary" id="modal-confirm">Confirm</button>
+            <button type="button" class="atm-btn" id="modal-cancel">Cancel</button>
+            <button type="button" class="atm-btn primary" id="modal-confirm">Confirm</button>
           </div>
           <div class="modal-status" id="modal-status"></div>
         </div>
@@ -115,22 +175,38 @@
             Loading...
           </div>
           <div class="modal-actions">
-            <button class="atm-btn" id="history-close">Close</button>
+            <button type="button" class="atm-btn" id="history-close">Close</button>
           </div>
         </div>
       </div>
 
-      <!-- Addresses -->
-      <section class="addresses-section">
-        <div class="address-item">
-          <label>Bank (Contract)</label>
-          <code id="contract-address">--</code>
+      <!-- Cash Dispenser Animation -->
+      <div class="dispenser-modal" id="dispenser-modal">
+        <div class="dispenser-content">
+          <div class="dispenser-slot">
+            <div class="slot-opening"></div>
+            <div class="cash-stack" id="cash-stack"></div>
+          </div>
+          <div class="dispenser-message" id="dispenser-message">Dispensing cash...</div>
         </div>
-        <div class="address-item">
-          <label>Client (Spender)</label>
-          <code id="spender-address">--</code>
+      </div>
+
+      <!-- Cheque Deposit Animation -->
+      <div class="deposit-modal" id="deposit-modal">
+        <div class="deposit-content">
+          <div class="deposit-slot">
+            <div class="slot-opening deposit-slot-opening"></div>
+            <div class="cheque" id="cheque">
+              <div class="cheque-content">
+                <div class="cheque-header">TEZOS BANK</div>
+                <div class="cheque-amount" id="cheque-amount">0.00 XTZ</div>
+                <div class="cheque-memo">For Deposit</div>
+              </div>
+            </div>
+          </div>
+          <div class="deposit-message" id="deposit-message">Insert cheque...</div>
         </div>
-      </section>
+      </div>
 
       <!-- Footer -->
       <footer class="atm-footer">
