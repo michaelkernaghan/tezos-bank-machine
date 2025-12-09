@@ -3,7 +3,7 @@
 const isLocalDev = window.location.hostname === 'localhost';
 const MCP_SERVER_URL = isLocalDev
   ? 'https://tezosx-mcp-production-a8a6.up.railway.app/mcp'
-  : '/api/mcp';
+  : '/api/mcp-proxy';
 
 // DOM Elements
 const elements = {
