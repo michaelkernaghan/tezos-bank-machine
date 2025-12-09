@@ -453,8 +453,10 @@ async function refreshLimits() {
 
 // Fetch and display addresses
 async function refreshAddresses() {
+  console.log('refreshAddresses called');
   try {
     const addressResult = await callMcpTool('tezos_get_addresses');
+    console.log('Address raw result:', addressResult);
     const addressText = addressResult.content?.[0]?.text || '';
     console.log('Address response:', addressText);
 
