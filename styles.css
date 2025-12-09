@@ -1,0 +1,484 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-dark: #1a1a2e;
+  --bg-card: #16213e;
+  --bg-input: #0f1628;
+  --accent: #00d4aa;
+  --accent-dim: #00a88a;
+  --text-primary: #e8e8e8;
+  --text-secondary: #a0a0a0;
+  --text-muted: #606060;
+  --error: #ff6b6b;
+  --success: #00d4aa;
+  --warning: #ffd93d;
+  --border: #2a3a5a;
+}
+
+body {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: var(--text-primary);
+}
+
+.atm-frame {
+  background: linear-gradient(145deg, #2a2a4a 0%, #1a1a2e 100%);
+  border-radius: 24px;
+  padding: 8px;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.atm-screen {
+  background: var(--bg-dark);
+  border-radius: 18px;
+  padding: 24px;
+  min-width: 380px;
+  max-width: 420px;
+}
+
+/* Header */
+.atm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.atm-header h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--accent);
+}
+
+.network-badge {
+  font-size: 0.65rem;
+  padding: 4px 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+}
+
+/* Status Bar */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: background 0.3s;
+}
+
+.status-dot.connected {
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success);
+}
+
+.status-dot.error {
+  background: var(--error);
+  box-shadow: 0 0 8px var(--error);
+}
+
+/* Balance Section */
+.balance-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.balance-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.balance-card label {
+  display: block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.balance-amount {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.balance-amount .currency {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-left: 4px;
+}
+
+/* Limits Section */
+.limits-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.limit-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.limit-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.limit-value {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.limit-value.highlight {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Action Buttons */
+.actions-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.atm-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.atm-btn:hover {
+  background: var(--bg-input);
+  border-color: var(--text-muted);
+}
+
+.atm-btn:active {
+  transform: scale(0.98);
+}
+
+.atm-btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-dark);
+}
+
+.atm-btn.primary:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent-dim);
+}
+
+.atm-btn.secondary {
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.atm-btn.secondary:hover {
+  background: rgba(0, 212, 170, 0.1);
+}
+
+.atm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-icon {
+  font-size: 1rem;
+}
+
+/* Addresses Section */
+.addresses-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.address-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 0;
+}
+
+.address-item:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
+.address-item label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.address-item code {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+/* Footer */
+.atm-footer {
+  text-align: center;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  min-width: 320px;
+  max-width: 90vw;
+}
+
+.modal-content.wide {
+  min-width: 400px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.modal-content h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--accent);
+  text-align: center;
+}
+
+.modal-body {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.input-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.quick-amounts {
+  display: flex;
+  gap: 8px;
+}
+
+.quick-btn {
+  flex: 1;
+  padding: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quick-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.modal-actions .atm-btn {
+  flex: 1;
+}
+
+.modal-status {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  text-align: center;
+  display: none;
+}
+
+.modal-status.show {
+  display: block;
+}
+
+.modal-status.success {
+  background: rgba(0, 212, 170, 0.1);
+  border: 1px solid var(--success);
+  color: var(--success);
+}
+
+.modal-status.error {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid var(--error);
+  color: var(--error);
+}
+
+.modal-status.loading {
+  background: rgba(255, 217, 61, 0.1);
+  border: 1px solid var(--warning);
+  color: var(--warning);
+}
+
+/* History List */
+.history-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.history-item .amount {
+  font-weight: 600;
+}
+
+.history-item .amount.incoming {
+  color: var(--success);
+}
+
+.history-item .amount.outgoing {
+  color: var(--error);
+}
+
+.history-item .details {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.history-item .time {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+/* Loading Animation */
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.loading {
+  animation: pulse 1.5s infinite;
+}
+
+/* Responsive */
+@media (max-width: 440px) {
+  .atm-screen {
+    min-width: 100%;
+    padding: 16px;
+  }
+
+  .balance-amount {
+    font-size: 1.2rem;
+  }
+}

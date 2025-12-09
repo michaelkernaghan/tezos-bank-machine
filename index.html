@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tezos Bank Machine</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="atm-frame">
+    <div class="atm-screen">
+      <!-- Header -->
+      <header class="atm-header">
+        <h1>TEZOS BANK</h1>
+        <div class="network-badge" id="network">shadownet</div>
+      </header>
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">Connecting...</span>
+      </div>
+
+      <!-- Balance Display -->
+      <section class="balance-section">
+        <div class="balance-card">
+          <label>Bank Balance</label>
+          <div class="balance-amount">
+            <span id="bank-balance">--</span>
+            <span class="currency">XTZ</span>
+          </div>
+        </div>
+        <div class="balance-card">
+          <label>Client Balance</label>
+          <div class="balance-amount">
+            <span id="client-balance">--</span>
+            <span class="currency">XTZ</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Limits Display -->
+      <section class="limits-section">
+        <div class="limit-item">
+          <span class="limit-label">Daily Limit</span>
+          <span class="limit-value" id="daily-limit">--</span>
+        </div>
+        <div class="limit-item">
+          <span class="limit-label">Per Transaction</span>
+          <span class="limit-value" id="tx-limit">--</span>
+        </div>
+        <div class="limit-item">
+          <span class="limit-label">Spent Today</span>
+          <span class="limit-value" id="spent-today">--</span>
+        </div>
+        <div class="limit-item">
+          <span class="limit-label">Remaining</span>
+          <span class="limit-value highlight" id="remaining">--</span>
+        </div>
+      </section>
+
+      <!-- Action Buttons -->
+      <section class="actions-section">
+        <button class="atm-btn primary" id="btn-withdraw">
+          <span class="btn-icon">↑</span>
+          Withdraw
+        </button>
+        <button class="atm-btn secondary" id="btn-deposit">
+          <span class="btn-icon">↓</span>
+          Deposit
+        </button>
+        <button class="atm-btn" id="btn-history">
+          <span class="btn-icon">☰</span>
+          History
+        </button>
+        <button class="atm-btn" id="btn-refresh">
+          <span class="btn-icon">⟳</span>
+          Refresh
+        </button>
+      </section>
+
+      <!-- Transaction Modal -->
+      <div class="modal" id="modal">
+        <div class="modal-content">
+          <h2 id="modal-title">Transaction</h2>
+          <div class="modal-body">
+            <div class="input-group" id="address-group">
+              <label for="address-input">Recipient Address</label>
+              <input type="text" id="address-input" placeholder="tz1...">
+            </div>
+            <div class="input-group">
+              <label for="amount-input">Amount (XTZ)</label>
+              <input type="number" id="amount-input" placeholder="0.00" step="0.01" min="0">
+            </div>
+            <div class="quick-amounts">
+              <button class="quick-btn" data-amount="1">1</button>
+              <button class="quick-btn" data-amount="5">5</button>
+              <button class="quick-btn" data-amount="10">10</button>
+              <button class="quick-btn" data-amount="25">25</button>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button class="atm-btn" id="modal-cancel">Cancel</button>
+            <button class="atm-btn primary" id="modal-confirm">Confirm</button>
+          </div>
+          <div class="modal-status" id="modal-status"></div>
+        </div>
+      </div>
+
+      <!-- History Modal -->
+      <div class="modal" id="history-modal">
+        <div class="modal-content wide">
+          <h2>Transaction History</h2>
+          <div class="history-list" id="history-list">
+            Loading...
+          </div>
+          <div class="modal-actions">
+            <button class="atm-btn" id="history-close">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Addresses -->
+      <section class="addresses-section">
+        <div class="address-item">
+          <label>Bank (Contract)</label>
+          <code id="contract-address">--</code>
+        </div>
+        <div class="address-item">
+          <label>Client (Spender)</label>
+          <code id="spender-address">--</code>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="atm-footer">
+        <span>Powered by TezosX MCP</span>
+      </footer>
+    </div>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
