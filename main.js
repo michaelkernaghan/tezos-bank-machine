@@ -456,10 +456,12 @@ async function refreshAddresses() {
   try {
     const addressResult = await callMcpTool('tezos_get_addresses');
     const addressText = addressResult.content?.[0]?.text || '';
+    console.log('Address response:', addressText);
 
     let addressData;
     try {
       addressData = JSON.parse(addressText);
+      console.log('Parsed address data:', addressData);
     } catch {
       const contractMatch = addressText.match(/Contract[:\s]+([A-Za-z0-9]+)/i);
       const spenderMatch = addressText.match(/Spender[:\s]+([A-Za-z0-9]+)/i);
@@ -467,6 +469,7 @@ async function refreshAddresses() {
         contract: contractMatch?.[1],
         spender: spenderMatch?.[1],
       };
+      console.log('Regex parsed address data:', addressData);
     }
 
     addresses = {
@@ -474,9 +477,12 @@ async function refreshAddresses() {
       spender: addressData.spenderAddress || addressData.spendingAddress || addressData.spender,
       owner: addressData.ownerAddress || addressData.owner,
     };
+    console.log('Final addresses:', addresses);
+    console.log('Current user:', currentUser);
 
     // Show logged-in user's address if available, otherwise show spender address
     const displayAddress = currentUser?.address || addresses.spender;
+    console.log('Display address:', displayAddress);
     elements.spenderAddress.textContent = displayAddress || '--';
   } catch (error) {
     console.error('Failed to refresh addresses:', error);
