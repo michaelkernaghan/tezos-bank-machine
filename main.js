@@ -39,7 +39,7 @@ const elements = {
   txLimit: document.getElementById('tx-limit'),
   spentToday: document.getElementById('spent-today'),
   remaining: document.getElementById('remaining'),
-  spenderAddress: document.getElementById('spender-address'),
+  userAddress: document.getElementById('user-address'),
   logoutBtn: document.getElementById('logout-btn'),
 
   // Actions
@@ -191,6 +191,9 @@ function handleLogin() {
     showLoginSuccess('Login successful!');
     setTimeout(() => {
       showScreen('main');
+      // Display user's address in welcome message (truncated)
+      const addr = currentUser.address;
+      elements.userAddress.textContent = `${addr.slice(0, 8)}...${addr.slice(-4)}`;
       refreshAll();
     }, 500);
   } else {
@@ -480,12 +483,6 @@ async function refreshAddresses() {
       owner: addressData.ownerAddress || addressData.owner,
     };
     console.log('Final addresses:', addresses);
-    console.log('Current user:', currentUser);
-
-    // Show logged-in user's address if available, otherwise show spender address
-    const displayAddress = currentUser?.address || addresses.spender;
-    console.log('Display address:', displayAddress);
-    elements.spenderAddress.textContent = displayAddress || '--';
   } catch (error) {
     console.error('Failed to refresh addresses:', error);
   }

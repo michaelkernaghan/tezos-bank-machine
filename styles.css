@@ -212,9 +212,25 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   font-size: 1rem;
   color: var(--text-secondary);
+}
+
+.welcome-message {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 20px;
+  padding: 8px;
+  background: rgba(0, 212, 170, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 212, 170, 0.2);
+}
+
+.welcome-message #user-address {
+  font-family: 'SF Mono', monospace;
+  font-weight: 600;
 }
 
 .status-dot {
